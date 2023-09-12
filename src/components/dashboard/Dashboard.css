@@ -1,0 +1,39 @@
+.card_name{
+    height: 330px;
+    /* background-color: #062c58 !important; */
+    background-image: url("https://www.themoviedb.org/t/p/w1920_and_h600_multi_faces_filter(duotone,00192f,00baff)/tt79dbOPd9Z9ykEOpvckttgYXwH.jpg");
+}
+.card_body{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: white;
+}
+.card_title{
+    font-size: 30px;
+    font-weight: 700;
+
+}
+.card_text{
+    font-size: 24px;
+    font-weight: 600;
+}
+.search{
+    background-color: #062c58;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+}
+.display{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 20px 12px;
+    cursor: pointer;
+}
+.display_card{
+    margin: 10px 0;
+}
+.link{
+    text-decoration: none;
+}

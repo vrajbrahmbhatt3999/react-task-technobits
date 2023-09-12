@@ -1,0 +1,63 @@
+@media only screen and (min-width: 768px) {
+    .paginationContainer {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .paginationContainer .previousBtn {
+        display: flex;
+        flex-direction: row;
+        color: blue;
+        font-size: 12px;
+        font-weight: 500;
+        background: white;
+        border: 1px solid blue;
+        padding: 9px 5px 6px 18px;
+        text-align: center;
+    }
+
+    .paginationContainer .previousBtn .title {
+        margin: 0px 0px 0px 7px;
+    }
+
+    .paginationContainer .previousBtn .icon {
+        margin: 2px 0px 0px 0px;
+    }
+
+    .paginationContainer .nextBtn {
+        display: flex;
+        flex-direction: row-reverse;
+        color: blue;
+        font-size: 12px;
+        font-weight: 500;
+        background:white;
+        border: 1px solid blue;
+        padding: 9px 5px 6px 18px;
+        text-align: center;
+    }
+
+    .paginationContainer .nextBtn .title {
+        margin: 0px 0px 0px 0px;
+    }
+
+    .paginationContainer .nextBtn .icon {
+        margin: 2px 0px 0px 7px;
+    }
+
+    .paginationContainer .pageNumber {
+        padding: 9px 15px;
+        border-top: 1px solid blue;
+        border-bottom: 1px solid blue;
+        cursor: pointer;
+        background: rgba(22, 132, 208, 0.12);
+    }
+
+    .paginationContainer .activePage {
+        padding: 9px 15px;
+        border-top: 1px solid blue;
+        border-bottom: 1px solid blue;
+        cursor: pointer;
+        background-color: blue;
+        color: white;
+    }
+}
