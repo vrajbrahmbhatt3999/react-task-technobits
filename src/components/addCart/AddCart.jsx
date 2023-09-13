@@ -8,19 +8,24 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import "../dashboard/Dashboard.css"
-import { removeItem } from '../../redux/dashboardSlice/DashboardSlice';
-import { useNavigate } from 'react-router-dom';
+import { addToCart, getTotals, removeFromCart, removeItem } from '../../redux/dashboardSlice/DashboardSlice';
+import { Link, useNavigate } from 'react-router-dom';
+import "./AddCart.css"
 const AddCart = () => {
     const dispatch = useDispatch()
 
     const navigate = useNavigate()
 
-    const { data } = useSelector((state) => state.dashboardReducer)
+    const cart = useSelector((state) => state.dashboardReducer);
 
     const handleRemoveFromCart = (item) => {
-        dispatch(removeItem(item));
-        navigate("/")
+        dispatch(removeFromCart(item));
     };
+
+    const addMore = () => {
+        navigate("/")
+    }
+
     return (
         <div>
             <div>
@@ -47,31 +52,58 @@ const AddCart = () => {
                             </Card>
                             <div className='display'>
                                 {
-                                    data?.length > 0 &&
-                                    data?.map((item) => {
-                                        return (
-                                            <>
-                                                <div className='display_card'>
-
-                                                    <Card style={{ width: '18rem', }} className=''
+                                    cart.cartItems.length === 0 ? (
+                                        <div className="cart-empty">
+                                            <p>Your Watch List is currently empty</p>
+                                            <div className="start-shopping">
+                                                <Link to="/">
+                                                    <svg
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                        width="20"
+                                                        height="20"
+                                                        fill="currentColor"
+                                                        className="bi bi-arrow-left"
+                                                        viewBox="0 0 16 16"
                                                     >
-                                                        <Card.Img variant="top" src={item?.backdrop_path} />
-                                                        <Card.Body>
-                                                            <Card.Title>{item?.original_title
-                                                            }</Card.Title>
+                                                        <path
+                                                            fillRule="evenodd"
+                                                            d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"
+                                                        />
+                                                    </svg>
+                                                    <span>Add Watch List</span>
+                                                </Link>
+                                            </div>
+                                        </div>
+                                    ) : (
+                                        <>
 
-                                                        </Card.Body>
-                                                        <ListGroup className="list-group-flush">
-                                                            <ListGroup.Item>{item?.overview}</ListGroup.Item>
-                                                            <ListGroup.Item>{item?.release_date}</ListGroup.Item>
-                                                        </ListGroup>
-                                                    </Card>
-                                                    <button type="button" class="btn btn-primary m-2 d-flex justify-content-center" onClick={() => handleRemoveFromCart(item)}>Remove Item</button>
-                                                </div>
-                                            </>
-                                        )
+                                            {cart?.cartItems?.length > 0 &&
+                                                cart?.cartItems?.map((item) => {
+                                                    return (
+                                                        <>
+                                                            <div className='display_card'>
 
-                                    })
+                                                                <Card className='cardMap'
+                                                                >
+                                                                    <Card.Img variant="top" src={item?.backdrop_path} />
+                                                                    <Card.Body>
+                                                                        <Card.Title>{item?.original_title
+                                                                        }</Card.Title>
+
+                                                                    </Card.Body>
+                                                                    <ListGroup className="list-group-flush">
+                                                                        <ListGroup.Item>{item?.release_date}</ListGroup.Item>
+                                                                    </ListGroup>
+                                                                </Card>
+                                                                <button type="button" class="btn btn-primary m-2 d-flex justify-content-center" onClick={() => handleRemoveFromCart(item)}>Remove Watch List</button>
+                                                            </div>
+                                                        </>
+                                                    )
+
+                                                })}
+
+                                        </>
+                                    )
 
                                 }
                             </div>

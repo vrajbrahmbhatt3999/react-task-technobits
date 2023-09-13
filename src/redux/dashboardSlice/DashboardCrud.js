@@ -4,7 +4,7 @@ import Config from "../../config/Config";
 // ************************************************************************
 
 export const Dashboard = (payload) => {
-    return axios.get(`${Config.default.dashboard}`, payload)
+    return axios.get(`${Config.default.dashboard.replace("pageNo", payload)}`)
 }
 
 // ************************************************************************
@@ -22,5 +22,5 @@ export const search = (payload) => {
 // ************************************************************************
 
 export const discover = (payload) => {
-    return axios.get(`${Config.default.discover.replace("page", payload)}`)
+    return axios.get(`${Config.default.discover.replace("pageNo", payload)}`)
 }

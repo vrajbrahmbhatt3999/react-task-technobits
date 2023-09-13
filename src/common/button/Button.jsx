@@ -17,7 +17,7 @@ const Button = ({
   return (
     <button
       disabled={disabled}
-      className="button_pagination"
+      className={["button", customClass].join(" ")}
       onClick={() => handleClick ? handleClick() : {}}
       onMouseEnter={() => {
         handleMouseEnter && handleMouseEnter();

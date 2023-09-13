@@ -1,6 +1,5 @@
 .card_name{
     height: 330px;
-    /* background-color: #062c58 !important; */
     background-image: url("https://www.themoviedb.org/t/p/w1920_and_h600_multi_faces_filter(duotone,00192f,00baff)/tt79dbOPd9Z9ykEOpvckttgYXwH.jpg");
 }
 .card_body{
@@ -24,15 +23,29 @@
     border-radius: 8px;
     cursor: pointer;
 }
+.memo{
+    display: flex;
+    justify-content: center;
+    margin-top: 8px;
+}
 .display{
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
-    margin: 20px 12px;
-    cursor: pointer;
+    justify-content: center;
 }
 .display_card{
-    margin: 10px 0;
+    cursor: pointer;
+    margin: 20px;
+
+}
+.cardMap{
+    height: 300px;
+    width: 300px;
+    background-color: #f0f0f0a3;
+    overflow-x: auto;
+    border: 1px solid rgb(219, 218, 218);
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 .link{
     text-decoration: none;

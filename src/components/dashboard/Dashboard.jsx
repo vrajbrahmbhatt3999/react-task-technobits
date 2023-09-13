@@ -8,9 +8,10 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import { useDispatch, useSelector } from 'react-redux';
-import { DiscoverData, SearchData, addItem, dashboardData, removeItem } from "../../redux/dashboardSlice/DashboardSlice";
+import { DiscoverData, SearchData, addItem, addToCart, dashboardData, removeItem } from "../../redux/dashboardSlice/DashboardSlice";
 import { Link, useNavigate } from 'react-router-dom';
 import Pagination from '../../common/pagination/Pagination';
+import NavBar from '../../common/navbar/Navbar';
 
 const Dashboard = () => {
     const navigate = useNavigate()
@@ -20,40 +21,37 @@ const Dashboard = () => {
     const [page, setPage] = useState(1)
     const [search, setSearch] = useState()
 
-    const { dashboardAllData, discoverAllData } = useSelector((state) => state.dashboardReducer)
+    const { dashboardAllData } = useSelector((state) => state.dashboardReducer)
 
+    const itemsPerPage = 10;
     const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 4;
-    const indexOfLastItem = currentPage * itemsPerPage;
-    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    // const currentItems = dashboardAllData.slice(indexOfFirstItem, indexOfLastItem);  
-    // const clientNames = OffshoreListTableData.map((item) => item.name);
-    // let varible = Math.ceil(discoverAllData.length / itemsPerPage);
-    const handlePaginate = (discoverAllData) => {
-        setCurrentPage(discoverAllData);
+
+    const first10Data = dashboardAllData.slice(0, itemsPerPage);
+
+    const handlePaginate = (item) => {
+        setCurrentPage(item);
     };
 
     const handlePrevious = () => {
-        currentPage !== 1 ? setCurrentPage(currentPage - 1) : setCurrentPage(1);
+        if (currentPage > 1) {
+            setCurrentPage(currentPage - 1);
+        }
     };
-    // const handleNext = () => {
-    //     currentPage !== varible
-    //         ? setCurrentPage(currentPage + 1)
-    //         : setCurrentPage(currentPage);
-    // };
 
+    const handleNext = () => {
+        setCurrentPage(currentPage + 1);
+    };
 
     useEffect(() => {
         dispatch(dashboardData())
-        dispatch(DiscoverData(page))
     }, [])
 
+    useEffect(() => {
+        dispatch(dashboardData(currentPage))
+    }, [currentPage])
 
     const handleClick = (item) => {
-        let data = []
-        data.push(item)
-        // localStorage.setItem("watchlist", JSON.stringify(data))
-        dispatch(addItem(data));
+        dispatch(addToCart(item));
         navigate("/addCart")
     }
 
@@ -64,7 +62,7 @@ const Dashboard = () => {
         <>
             <div className='header_main'>
                 <div className='header'>
-                    {/* <Header /> */}
+                    <NavBar />
                 </div>
                 <div className='container_main'>
                     <div>
@@ -91,14 +89,13 @@ const Dashboard = () => {
                                     </Card>
                                     <div className='display'>
                                         {
-                                            dashboardAllData?.length > 0 &&
-                                            dashboardAllData?.map((item) => {
+                                            first10Data?.length > 0 &&
+                                            first10Data?.map((item) => {
                                                 return (
                                                     <>
                                                         <div className='display_card'>
-
                                                             <Link to={`/${item?.id}`} className='link'>
-                                                                <Card style={{ width: '18rem', }} className=''
+                                                                <Card className='cardMap'
                                                                 >
                                                                     <Card.Img variant="top" src={item?.backdrop_path} />
                                                                     <Card.Body>
@@ -107,12 +104,14 @@ const Dashboard = () => {
 
                                                                     </Card.Body>
                                                                     <ListGroup className="list-group-flush">
-                                                                        <ListGroup.Item>{item?.overview}</ListGroup.Item>
-                                                                        <ListGroup.Item>{item?.release_date}</ListGroup.Item>
+                                                                        {/* <ListGroup.Item>{item?.overview}</ListGroup.Item> */}
+                                                                        <ListGroup.Item className='dateName'>{item?.release_date}</ListGroup.Item>
                                                                     </ListGroup>
                                                                 </Card>
                                                             </Link>
+                                                            <div className='memo'>
                                                             <button class="btn btn-primary m-2 d-flex justify-content-center" onClick={() => handleClick(item)}>Watchlist</button>
+                                                        </div>
                                                         </div>
                                                     </>
                                                 )
@@ -131,16 +130,15 @@ const Dashboard = () => {
             </div>
             <div className="paginationContainer">
                 <div>
-                    {/* Showing {currentItems.length} from {dashboardAllData.length} data */}
                 </div>
-                {/* <Pagination
-                    data={discoverAllData}
+                <Pagination
+                    data={dashboardAllData}
                     itemsPerPage={itemsPerPage}
                     handlePaginate={(item) => handlePaginate(item)}
                     active={currentPage}
                     handlePrevious={() => handlePrevious()}
                     handleNext={() => handleNext()}
-                /> */}
+                />
             </div>
         </>
     )

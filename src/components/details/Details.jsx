@@ -51,7 +51,7 @@ const Details = () => {
                                 </Card>
                                 <div className='display_second'>
 
-                                    <Card style={{ width: '18rem', }} className='display_card'
+                                    <Card style={{ width: '18rem', }} className='display_cardss'
                                     // onClick={handleClick}
                                     >
                                         <Card.Img variant="top" src={movieData?.backdrop_path} />
@@ -61,7 +61,12 @@ const Details = () => {
 
                                         </Card.Body>
                                         <ListGroup className="list-group-flush">
-                                            <ListGroup.Item>{movieData?.overview}</ListGroup.Item>
+                                            <ListGroup.Item>{movieData?.genres?.map((item, index) => (
+                                                <span key={item.id}>
+                                                    {item.name}
+                                                    {index < movieData.genres.length - 1 ? ', ' : ''}
+                                                </span>
+                                            ))}</ListGroup.Item>
                                             <ListGroup.Item>{movieData?.status}</ListGroup.Item>
                                         </ListGroup>
 

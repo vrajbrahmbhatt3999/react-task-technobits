@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import { Dashboard, Movie, discover, search } from "./DashboardCrud"
+import { toast } from "react-toastify";
 
 export const dashboardData = createAsyncThunk(
     "dashboard/dashboardData",
@@ -76,15 +77,47 @@ const DashBoardSlice = createSlice({
         movieData: {},
         searchAllData: {},
         discoverAllData: {},
-        data: []
+        cartItems: localStorage.getItem("WatchList")
+            ? JSON.parse(localStorage.getItem("WatchList"))
+            : [],
+        cartTotalQuantity: 0,
+        cartTotalAmount: 0,
     },
     reducers: {
-        addItem: (state, action) => {
-            state.data = action.payload;
+        addToCart(state, action) {
+            const existingIndex = state.cartItems?.findIndex(
+                (item) => item.id === action.payload.id
+            );
+            if (existingIndex >= 0) {
+                state.cartItems[existingIndex] = {
+                    ...state.cartItems[existingIndex],
+                    cartQuantity: state.cartItems[existingIndex].cartQuantity + 1,
+                };
+            } else {
+                let tempProductItem = { ...action.payload, cartQuantity: 1 };
+                state.cartItems?.push(tempProductItem);
+            }
+            localStorage.setItem("WatchList", JSON.stringify(state.cartItems));
         },
-        removeItem: (state, action) => {
-            state.data = state.data.filter(item => item.id !== action.payload.id);
-        }
+      
+        removeFromCart(state, action) {
+            state.cartItems.map((cartItem) => {
+                if (cartItem.id === action.payload.id) {
+                    const nextCartItems = state.cartItems.filter(
+                        (item) => item.id !== cartItem.id
+                    );
+                    state.cartItems = nextCartItems;
+                }
+                localStorage.setItem("WatchList", JSON.stringify(state.cartItems));
+                return state;
+            });
+        },
+       
+        clearCart(state, action) {
+            state.cartItems = [];
+            localStorage.setItem("WatchList", JSON.stringify(state.cartItems));
+        },
+
 
     },
     extraReducers: {
@@ -133,5 +166,5 @@ const DashBoardSlice = createSlice({
         }
     }
 })
-export const { removeItem, addItem } = DashBoardSlice.actions;
+export const { addToCart,  removeFromCart, clearCart } = DashBoardSlice.actions;
 export default DashBoardSlice.reducer;
