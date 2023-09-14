@@ -31,6 +31,9 @@ const Dashboard = () => {
     const handlePaginate = (item) => {
         setCurrentPage(item);
     };
+    const handleDot = (item) => {
+        setCurrentPage(item);
+    };
 
     const handlePrevious = () => {
         if (currentPage > 1) {
@@ -58,6 +61,8 @@ const Dashboard = () => {
     const handleClickSearch = () => {
         dispatch(SearchData(search))
     }
+
+    console.log(first10Data, "first10Data")
     return (
         <>
             <div className='header_main'>
@@ -94,24 +99,25 @@ const Dashboard = () => {
                                                 return (
                                                     <>
                                                         <div className='display_card'>
+                                                            <div className='memo'>
+                                                                <button class="btn btn-info m-2 d-flex justify-content-center btn-watchlist" onClick={() => handleClick(item)}>Watchlist</button>
+                                                            </div>
                                                             <Link to={`/${item?.id}`} className='link'>
                                                                 <Card className='cardMap'
                                                                 >
-                                                                    <Card.Img variant="top" src={item?.backdrop_path} />
+                                                                    <Card.Img className='images' variant="top" src={"https://www.themoviedb.org/t/p/w440_and_h660_face/" + item?.poster_path} />
+                                                                
                                                                     <Card.Body>
                                                                         <Card.Title>{item?.original_title
                                                                         }</Card.Title>
 
                                                                     </Card.Body>
                                                                     <ListGroup className="list-group-flush">
-                                                                        {/* <ListGroup.Item>{item?.overview}</ListGroup.Item> */}
                                                                         <ListGroup.Item className='dateName'>{item?.release_date}</ListGroup.Item>
                                                                     </ListGroup>
                                                                 </Card>
                                                             </Link>
-                                                            <div className='memo'>
-                                                            <button class="btn btn-primary m-2 d-flex justify-content-center" onClick={() => handleClick(item)}>Watchlist</button>
-                                                        </div>
+
                                                         </div>
                                                     </>
                                                 )
@@ -135,6 +141,7 @@ const Dashboard = () => {
                     data={dashboardAllData}
                     itemsPerPage={itemsPerPage}
                     handlePaginate={(item) => handlePaginate(item)}
+                    handleDot={(item)=>handleDot(item)}
                     active={currentPage}
                     handlePrevious={() => handlePrevious()}
                     handleNext={() => handleNext()}

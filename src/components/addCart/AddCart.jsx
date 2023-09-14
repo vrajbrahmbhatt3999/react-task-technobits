@@ -83,20 +83,26 @@ const AddCart = () => {
                                                         <>
                                                             <div className='display_card'>
 
-                                                                <Card className='cardMap'
-                                                                >
-                                                                    <Card.Img variant="top" src={item?.backdrop_path} />
-                                                                    <Card.Body>
-                                                                        <Card.Title>{item?.original_title
-                                                                        }</Card.Title>
+                                                                <Link to={`/${item?.id}`} className='link'>
+                                                                    <Card className='cardMap'
+                                                                    >
+                                                                        <Card.Img className='images' variant="top" src={"https://www.themoviedb.org/t/p/w440_and_h660_face/" + item?.poster_path} />
 
-                                                                    </Card.Body>
-                                                                    <ListGroup className="list-group-flush">
-                                                                        <ListGroup.Item>{item?.release_date}</ListGroup.Item>
-                                                                    </ListGroup>
-                                                                </Card>
-                                                                <button type="button" class="btn btn-primary m-2 d-flex justify-content-center" onClick={() => handleRemoveFromCart(item)}>Remove Watch List</button>
+                                                                        <Card.Body>
+                                                                            <Card.Title>{item?.original_title
+                                                                            }</Card.Title>
+
+                                                                        </Card.Body>
+                                                                        <ListGroup className="list-group-flush">
+                                                                            <ListGroup.Item className='dateName'>{item?.release_date}</ListGroup.Item>
+                                                                        </ListGroup>
+                                                                    </Card>
+                                                                </Link>
+                                                                <div className='memo'>
+                                                                    <button class="btn btn-info m-2 d-flex justify-content-center btn-watchlist" onClick={() => handleRemoveFromCart(item)}>Remove From Watchlist</button>
+                                                                </div>
                                                             </div>
+
                                                         </>
                                                     )
 

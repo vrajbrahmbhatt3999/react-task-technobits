@@ -4,12 +4,12 @@ import { Next, Previous } from "../../assest";
 import Container from 'react-bootstrap/Container';
 const Pagination = ({
   data,
-  itemsPerPage,
   handlePrevious,
+  handlePaginate,
   handleNext,
 }) => {
   const pages = [];
-  for (let i = 1; i <= Math.ceil(data && data.length / itemsPerPage); i++) {
+  for (let i = 1; i <= Math.ceil(data && data.length/2); i++) {
     pages.push(i);
   }
   return (
@@ -23,6 +23,22 @@ const Pagination = ({
           titleCustomClass="title"
           iconCustomClass="icon"
         />
+        {pages.map((item, index) => {
+          return (
+            <>
+            <span
+              key={index}
+              className="paginateNUmber"
+              onClick={() => handlePaginate(item)}
+            >
+              {item}
+            </span>
+            </>
+          );
+        })}
+        <div className="dot">
+          .......
+        </div>
         <Button
           icon={<Next fillColor="#0868AA" />}
           handleClick={() => handleNext()}

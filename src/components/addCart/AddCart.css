@@ -1,36 +1,63 @@
-.cardMap {
-    height: 300px;
+.card_name{
+    height: 330px;
+    background-image: url("https://www.themoviedb.org/t/p/w1920_and_h600_multi_faces_filter(duotone,00192f,00baff)/tt79dbOPd9Z9ykEOpvckttgYXwH.jpg");
+}
+.card_body{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: white;
+}
+.card_title{
+    font-size: 30px;
+    font-weight: 700;
+
+}
+.card_text{
+    font-size: 24px;
+    font-weight: 600;
+}
+.search{
+    background-color: #062c58;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+}
+.memo{
+    display: flex;
+    justify-content: center;
+    /* margin-top: 8px; */
+    position: absolute;
+    justify-content: flex-end;
+    width: 314px;
+    padding-right: 15px;
+    z-index: 1;
+
+}
+.display{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.display_card{
+    cursor: pointer;
+    margin: 20px;
+
+}
+.cardMap{
+    height: 458px;
     width: 300px;
     background-color: #f0f0f0a3;
-    overflow-x: auto;
+    /* overflow-x: auto; */
     border: 1px solid rgb(219, 218, 218);
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
-
-.continue-shopping,
-.start-shopping {
-    margin-top: 1rem;
-}
-
-.continue-shopping a,
-.start-shopping a {
-    color: gray;
+.link{
     text-decoration: none;
-    display: flex;
-    align-items: center;
 }
-
-.continue-shopping a span,
-.start-shopping a span {
-    margin-left: 0.5rem;
-}
-
-.cart-empty {
-    font-size: 20px;
-    margin-top: 2rem;
-    color: rgb(84, 84, 84);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.images{
+    background-repeat: no-repeat;
+    width: 297px;
+    height: 299px;
 }
